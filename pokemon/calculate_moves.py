@@ -1,4 +1,4 @@
-# ./pokemon_battle_sim/calculate_moves.py
+# ./pokemon/calculate_moves.py
 import random, requests
 
 def get_move_data(move_name):
@@ -16,20 +16,6 @@ def get_move_data(move_name):
         }
     else:
         return None
-
-def select_moves(pokemon):
-    """Select 4 random moves for the Pokémon from its available move pool."""
-    if len(pokemon['available_moves']) < 4:
-        moves = pokemon['available_moves']  # In case it has less than 4 moves
-    else:
-        moves = random.sample(pokemon['available_moves'], 4)  # Randomly select 4 moves
-
-    move_details = []
-    for move in moves:
-        move_data = get_move_data(move)
-        move_details.append(move_data)
-    
-    return move_details
 
 def get_type_effectiveness(attacking_type, defending_type):
     """Fetch the type effectiveness (damage multiplier) from the PokeAPI."""

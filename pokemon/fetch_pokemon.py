@@ -1,6 +1,21 @@
-# ./pokemon_battle_sim/fetch_pokemon.py
+# ./pokemon/fetch_pokemon.py
 import requests
 
+POKEAPI_URL = "https://pokeapi.co/api/v2/"
+
+def get_pokemon_list(limit=1025):
+    """Fetch a list of Pokémon names from the PokeAPI."""
+    url = f"{POKEAPI_URL}pokemon?limit={limit}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        pokemon_list = [pokemon['name'] for pokemon in data['results']]
+        return pokemon_list
+    else:
+        print("Failed to fetch Pokémon list from the API.")
+        return []
+    
 def get_pokemon_data(pokemon_name):
     """Fetch the Pokémon's basic data, including types, stats, abilities, and moves."""
     url = f"https://pokeapi.co/api/v2/pokemon/{pokemon_name.lower()}"
